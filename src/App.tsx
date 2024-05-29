@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/auth/login/LoginPage";
 import { useQuery } from "@tanstack/react-query";
 import HomePage from "./pages/home/HomePage";
+import RegisterPage from "./pages/register/RegisterPage";
 
 export default function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -33,6 +34,10 @@ export default function App() {
           <Route
             path="/login"
             element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/register"
+            element={!authUser ? <RegisterPage /> : <Navigate to="/" />}
           />
         </Routes>
       </div>

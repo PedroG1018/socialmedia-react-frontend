@@ -3,6 +3,8 @@ import LoginPage from "./pages/auth/login/LoginPage";
 import { useQuery } from "@tanstack/react-query";
 import HomePage from "./pages/home/HomePage";
 import RegisterPage from "./pages/register/RegisterPage";
+import LoadingSpinner from "./components/common/LoadingSpinner";
+import Sidebar from "./components/common/Sidebar";
 
 export default function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -22,10 +24,20 @@ export default function App() {
         throw error;
       }
     },
+    retry: false,
   });
+
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex max-w-6xl mx-auto">
+        {authUser && <Sidebar />}
         <Routes>
           <Route
             path="/"

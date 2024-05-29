@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { BiLogOut } from "react-icons/bi";
+import CreatePost from "./CreatePost";
+import Posts from "../../components/common/Posts";
 
 type AuthUser = {
   username: string;
@@ -39,7 +41,16 @@ const HomePage = () => {
   const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
 
   return (
-    <div>
+    <div className="flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen">
+      {/* Header */}
+      <div className="flex w-full border-b border-gray-700">
+        <div className="flex justify-center flex-1 p-3 cursor-pointer relative">
+          Following
+        </div>
+      </div>
+      <CreatePost />
+
+      <Posts feedType="following" />
       <BiLogOut
         className="w-5 h-5 cursor-pointer"
         onClick={(e) => {

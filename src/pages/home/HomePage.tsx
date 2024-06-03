@@ -51,13 +51,6 @@ const HomePage = () => {
       <CreatePost />
 
       <Posts feedType="following" />
-      <BiLogOut
-        className="w-5 h-5 cursor-pointer"
-        onClick={(e) => {
-          e.preventDefault();
-          logout();
-        }}
-      ></BiLogOut>
     </div>
   );
 };

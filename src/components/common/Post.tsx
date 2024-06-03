@@ -1,9 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
-import React from "react";
 import toast from "react-hot-toast";
 import { Post_T, User_T } from "../../utils/types/types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegHeart, FaTrash } from "react-icons/fa";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -19,6 +18,8 @@ const Post = ({ post }) => {
   const formattedDate: string = moment(post.createdAt).fromNow();
 
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const { mutate: deletePost, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
@@ -87,7 +88,10 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <div className="flex gap-2 items-start p-4 border-b border-gray-700">
+      <div
+        className="flex gap-2 items-start p-4 border-b border-gray-700 cursor-pointer"
+        onClick={() => navigate(`/post/${post._id}`)}
+      >
         <div className="avatar">
           <Link
             to={`/profile/${postOwner.username}`}

@@ -5,6 +5,7 @@ import HomePage from "./pages/home/HomePage";
 import RegisterPage from "./pages/register/RegisterPage";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import Sidebar from "./components/common/Sidebar";
+import PostPage from "./pages/post/PostPage";
 
 export default function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -50,6 +51,10 @@ export default function App() {
           <Route
             path="/register"
             element={!authUser ? <RegisterPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/post/:id"
+            element={authUser ? <PostPage /> : <Navigate to="/login" />}
           />
         </Routes>
       </div>

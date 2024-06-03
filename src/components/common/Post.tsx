@@ -88,10 +88,7 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <div
-        className="flex gap-2 items-start p-4 border-b border-gray-700 cursor-pointer"
-        onClick={() => navigate(`/post/${post._id}`)}
-      >
+      <div className="flex gap-2 items-start p-4 border-b border-gray-700">
         <div className="avatar">
           <Link
             to={`/profile/${postOwner.username}`}
@@ -127,7 +124,11 @@ const Post = ({ post }) => {
               </span>
             )}
           </div>
-          <div className="flex flex-col gap-3 overflow-hidden">
+
+          <div
+            className="flex flex-col gap-3 overflow-hidden cursor-pointer"
+            onClick={() => navigate(`/post/${post._id}`)}
+          >
             <span>{post.text}</span>
             {post.img && (
               <img

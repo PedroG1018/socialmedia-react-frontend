@@ -78,7 +78,7 @@ const PostPage = () => {
       </div>
       {(isPostRefetching || isPostLoading) && <PostSkeleton />}
       {!isPostRefetching && !isPostLoading && post && (
-        <div>
+        <div className="border-b border-gray-700">
           <ParentPost post={post} numComments={comments?.length} />
           <CreateComment postId={postId} />
         </div>

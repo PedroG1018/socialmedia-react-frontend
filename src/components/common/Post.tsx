@@ -3,8 +3,9 @@ import moment from "moment";
 import toast from "react-hot-toast";
 import { Post_T, User_T } from "../../utils/types/types";
 import { Link, useNavigate } from "react-router-dom";
-import { FaRegHeart, FaTrash } from "react-icons/fa";
+import { FaRegComment, FaRegHeart, FaTrash } from "react-icons/fa";
 import LoadingSpinner from "./LoadingSpinner";
+import CreateComment from "../../pages/post/CreateComment";
 
 const Post = ({ post }) => {
   const { data: authUser } = useQuery<User_T>({ queryKey: ["authUser"] });
@@ -94,10 +95,7 @@ const Post = ({ post }) => {
             to={`/profile/${postOwner.username}`}
             className="w-8 rounded-full overflow-hidden"
           >
-            <img
-              src={postOwner.profilePic || "/avatar-placeholder.png"}
-              alt=""
-            />
+            <img src={postOwner.profilePic || "/avatar-placeholder.png"} />
           </Link>
         </div>
         <div className="flex flex-col flex-1">
@@ -140,6 +138,71 @@ const Post = ({ post }) => {
           </div>
           <div className="flex justify-between mt-3">
             <div className="flex gap-4 items-center w-2/3 justify-between">
+              {/* CREATE COMMENT MODAL */}
+              <div
+                className="flex gap-1 items-center cursor-pointer group"
+                onClick={() =>
+                  document
+                    .getElementById("comments_modal" + post._id)
+                    .showModal()
+                }
+              >
+                <FaRegComment className="w-4 h-4  text-slate-500 group-hover:text-sky-400" />
+                <span className="text-sm text-slate-500 group-hover:text-sky-400">
+                  {1}
+                </span>
+              </div>
+              <dialog
+                id={`comments_modal${post._id}`}
+                className="modal border-none outline-none"
+              >
+                <div className="modal-box rounded border border-gray-600">
+                  <div className="flex p-4 gap-2 items-start overflow-auto mb-4">
+                    <div className="avatar">
+                      <Link
+                        to={`/profile/${postOwner.username}`}
+                        className="w-12 rounded-full overflow-hidden"
+                      >
+                        <img
+                          src={
+                            postOwner.profilePic || "/avatar-placeholder.png"
+                          }
+                        />
+                      </Link>
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <div className="flex gap-2 items-center">
+                        <Link
+                          to={`/profile/${postOwner.username}`}
+                          className="font-bold"
+                        >
+                          {postOwner.fullName}
+                        </Link>
+                        <span className="text-gray-700 flex gap-1 text-sm">
+                          <Link to={`/profile/${postOwner.username}`}>
+                            @{postOwner.username}
+                          </Link>
+                          <span>·</span>
+                          <span>{formattedDate}</span>
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-3 overflow-hidden">
+                        <span>{post.text}</span>
+                        {post.img && (
+                          <img
+                            src={post.img}
+                            className="h-72 object-contain rounded-lg border border-gray-700"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <CreateComment postId={post._id} />
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                  <button className="outline-none">close</button>
+                </form>
+              </dialog>
               <div
                 className="flex gap-1 items-center group cursor-pointer"
                 onClick={handleLikePost}

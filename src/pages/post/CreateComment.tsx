@@ -34,6 +34,7 @@ const CreateComment = ({ postId }: { postId: string | undefined }) => {
     onSuccess: () => {
       Promise.all([
         queryClient.invalidateQueries({ queryKey: ["post"] }),
+        queryClient.invalidateQueries({ queryKey: ["posts"] }),
         queryClient.invalidateQueries({ queryKey: ["comments"] }),
       ]);
       setText("");
@@ -46,7 +47,7 @@ const CreateComment = ({ postId }: { postId: string | undefined }) => {
   };
 
   return (
-    <div className="flex gap-2 items-start p-4 border-b border-gray-700">
+    <div className="flex gap-2 items-start p-4">
       <div className="avatar">
         <Link
           to={`/profile/${authUser!.username}`}

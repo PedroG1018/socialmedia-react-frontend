@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { Post_T } from "../../utils/types/types";
 import Post from "./Post";
+import PostSkeleton from "../skeletons/PostSkeleton";
 
 type PostsProps = {
   feedType: string;
@@ -55,7 +56,11 @@ const Posts = ({ feedType, username, userId }: PostsProps) => {
   return (
     <>
       {(isLoading || isRefetching) && (
-        <div className="flex flex-col justify-center"></div>
+        <div className="flex flex-col justify-center">
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+        </div>
       )}
       {!isLoading && !isRefetching && posts?.length === 0 && (
         <p className="text-center my-4">No posts to be found</p>

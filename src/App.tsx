@@ -7,6 +7,8 @@ import LoadingSpinner from "./components/common/LoadingSpinner";
 import Sidebar from "./components/common/Sidebar";
 import PostPage from "./pages/post/PostPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import RightPanel from "./components/common/RightPanel";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -62,6 +64,8 @@ export default function App() {
             element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
           />
         </Routes>
+        {authUser && <RightPanel />}
+        <Toaster />
       </div>
     </>
   );

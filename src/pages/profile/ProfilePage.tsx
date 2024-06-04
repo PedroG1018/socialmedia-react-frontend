@@ -89,6 +89,7 @@ const ProfilePage = () => {
       toast.error(error.message);
     },
   });
+
   const isMyProfile: boolean = authUser?._id === user?._id;
 
   const formattedDate: string = moment(user?.createdAt).toDate().toDateString();
@@ -174,17 +175,17 @@ const ProfilePage = () => {
                       src={
                         profilePic ||
                         user?.profilePic ||
-                        "/avatar/placeholder.png"
+                        "/avatar-placeholder.png"
                       }
                     />
-                    <div className="absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer">
-                      {isMyProfile && (
+                    {isMyProfile && (
+                      <div className="absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer">
                         <MdEdit
                           className="w-4 h-4 text-white"
                           onClick={() => profilePicRef.current.click()}
                         />
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const useCreateComment = (postId: string, text: string, setText) => {
   const queryClient = useQueryClient();
 
-  const { mutate: createComment, isPending: isCommentPending } = useMutation({
+  const { mutate: createComment, isPending: isCommenting } = useMutation({
     mutationFn: async () => {
       try {
         const res = await fetch(`/api/comments/${postId}`, {
@@ -33,7 +33,7 @@ const useCreateComment = (postId: string, text: string, setText) => {
     },
   });
 
-  return { createComment, isCommentPending };
+  return { createComment, isCommenting };
 };
 
 export default useCreateComment;

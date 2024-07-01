@@ -9,7 +9,7 @@ export type User_T = {
   profilePic: string;
   coverPic: string;
   bio: string;
-  links: string[];
+  link: string;
   likedPosts: Post_T[];
   likedComment: Comment_T[];
   createdAt: Date;

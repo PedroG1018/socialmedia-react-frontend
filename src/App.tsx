@@ -9,6 +9,7 @@ import PostPage from "./pages/post/PostPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import RightPanel from "./components/common/RightPanel";
 import { Toaster } from "react-hot-toast";
+import NotificationsPage from "./pages/notifications/NotificationsPage";
 
 export default function App() {
   const { data: authUser, isLoading } = useQuery({
@@ -58,6 +59,12 @@ export default function App() {
           <Route
             path="/post/:id"
             element={authUser ? <PostPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/notifications"
+            element={
+              authUser ? <NotificationsPage /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="/profile/:username"
